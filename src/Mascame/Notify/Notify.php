@@ -15,9 +15,9 @@ class Notify {
 	 * @param null $option
 	 * @return mixed|null
 	 */
-	public static function option($type, $option)
+	public static function option($type, $option, $value = null)
 	{
-		if (!$option) {
+		if (!$value) {
 			$key = 'notify::notify.' . $type . '.' . $option;
 
 			if (Config::has($key)) {
@@ -25,7 +25,7 @@ class Notify {
 			}
 		}
 
-		return $option;
+		return $value;
 	}
 
 	/**
@@ -40,36 +40,45 @@ class Notify {
 	 * @param $value
 	 * @param bool $autohide
 	 */
-	public static function success($value, $autohide = false, $icon = null, $dismissable = false)
+	public static function success($value, $autohide = false, $icon = false, $dismissable = false)
 	{
-		Notify::add($value, 'success', $autohide, self::option('success', $icon), self::option('success', $dismissable));
+		Notify::add($value, 'success', $autohide, $icon, $dismissable);
 	}
 
 	/**
 	 * @param $value
 	 * @param bool $autohide
 	 */
-	public static function info($value, $autohide = false, $icon = null, $dismissable = false)
+	public static function info($value, $autohide = false, $icon = false, $dismissable = false)
 	{
-		Notify::add($value, 'info', $autohide, self::option('success', $icon), self::option('success', $dismissable));
+		Notify::add($value, 'info', $autohide, $icon, $dismissable);
 	}
 
 	/**
 	 * @param $value
 	 * @param bool $autohide
 	 */
-	public static function warning($value, $autohide = false, $icon = null, $dismissable = false)
+	public static function warning($value, $autohide = false, $icon = false, $dismissable = false)
 	{
-		Notify::add($value, 'warning', $autohide, self::option('success', $icon), self::option('success', $dismissable));
+		Notify::add($value, 'warning', $autohide, $icon, $dismissable);
 	}
 
 	/**
 	 * @param $value
 	 * @param bool $autohide
 	 */
-	public static function danger($value, $autohide = false, $icon = null, $dismissable = false)
+	public static function danger($value, $autohide = false, $icon = false, $dismissable = false)
 	{
-		Notify::add($value, 'danger', $autohide, self::option('success', $icon), self::option('success', $dismissable));
+		Notify::add($value, 'danger', $autohide, $icon, $dismissable);
+	}
+
+	/**
+	 * @param $value
+	 * @param bool $autohide
+	 */
+	public static function loading($value, $autohide = false, $icon = false, $dismissable = false)
+	{
+		Notify::add($value, 'loading', $autohide, $icon, $dismissable);
 	}
 
 	/**
@@ -77,7 +86,7 @@ class Notify {
 	 * @param string $type
 	 * @param bool $autohide
 	 */
-	public static function add($value, $type = 'success', $autohide = false, $icon = null, $dismissable = false)
+	public static function add($value, $type = 'success', $autohide = false, $icon = false, $dismissable = false)
 	{
 		$notifications = Notify::getAll();
 
@@ -85,8 +94,12 @@ class Notify {
 			'type'        => $type,
 			'value'       => $value,
 			'autohide'    => $autohide,
-			'icon'        => $icon,
-			'dismissable' => $dismissable
+			'icon'        => (is_bool($icon) && $icon === true || self::option('default', 'show_icon')) ? self::option($type, 'icon') : $icon,
+			'class'       => self::option($type, 'class'),
+			'dismissable' => self::option($type, 'dismissable', $dismissable),
+			'default' => array(
+				'class' => self::option('default', 'class')
+			)
 		);
 
 		Session::flash(self::$key, $notifications);

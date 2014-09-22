@@ -22,25 +22,28 @@ class NotifyServiceProvider extends ServiceProvider {
 	{
 		$this->package('mascame/notify');
 
+		$this->app['notify'] = $this->app->share(function ($app) {
+			return new PublishCommand();
+		});
+
+		$this->commands('notify');
+
 		HTML::macro('notify', function ($notifications) {
 
 			if (!empty($notifications)) {
+
 				foreach ($notifications as $notification) {
 					?>
-						<div class="alert notify alert-<?php print $notification['type']; ?> <?php
+						<div class="<?php print $notification['default']['class']; ?> <?php print $notification['class']; ?> <?php
 						(!$notification['dismissable']) ?: print 'alert-dismissable' ?> <?php
 						(!$notification['autohide']) ?: print 'notify-autohide' ?>">
 
 							<?php
-								if (isset($notification['icon'])) {
-									print $notification['icon'];
-								}
+								print $notification['icon'] . ' ';
 
-								if ($notification['dismissable']) {
-									?>
+								if ($notification['dismissable']) { ?>
 									<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-									<?php
-								}
+								<?php }
 
 								print $notification['value'];
 							?>
