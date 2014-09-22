@@ -3,6 +3,8 @@ Laravel Notify
 
 Notify is a package to rapidly notificate your users about something using Bootstrap classes
 
+[A nice alternative if this not satisfy your needs](https://github.com/AndreasHeiberg/laravel-notify)
+
 Installation
 --------------
 Require this package in your composer.json and run composer update:
