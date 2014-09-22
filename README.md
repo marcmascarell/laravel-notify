@@ -29,7 +29,8 @@ php artisan config:publish mascame/notify
 Usage
 --------------
 
-*Edit config file to your needs.*
+- Require bootstrap or compatible framework.
+- Edit config file to your needs.
 
 In template:
 ```php
