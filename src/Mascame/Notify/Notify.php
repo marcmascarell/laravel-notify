@@ -79,9 +79,9 @@ class Notify {
 	 */
 	public static function add($value, $type = 'success', $autohide = false, $icon = null, $dismissable = false)
 	{
-		$Notifys = Notify::getAll();
+		$notifications = Notify::getAll();
 
-		$Notifys[] = array(
+		$notifications[] = array(
 			'type'        => $type,
 			'value'       => $value,
 			'autohide'    => $autohide,
@@ -89,7 +89,7 @@ class Notify {
 			'dismissable' => $dismissable
 		);
 
-		Session::flash(self::$key, $Notifys);
+		Session::flash(self::$key, $notifications);
 	}
 
 	/**
