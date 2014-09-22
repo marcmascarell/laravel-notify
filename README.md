@@ -9,16 +9,16 @@ Require this package in your composer.json and run composer update:
 
     "mascame/notify": "dev-master"
 
-Add the Service Provider to `app/config` at the bottom of Providers:
+Add to `app/config`:
 
 ```php
+// the Service Provider
 'Mascame\Notify\NotifyServiceProvider'
-```
-Add the alias:
 
-```php
+// the alias
 'Notify' => '\Mascame\Notify\Notify'
 ```
+
 
 Publish assets and config
 
@@ -29,21 +29,42 @@ php artisan config:publish mascame/notify
 Usage
 --------------
 
-Edit config file to your needs.
+*Edit config file to your needs.*
 
-In template
+In template:
 ```php
 Notify::all();
+
+// blade
+{{ Notify::all(); }}
 ```
 
-In your logic
+In your logic:
 ```php
+// $autohide = false, $icon = null, $dismissable = false
+
 Notify::success('Successfuly notified!');
 Notify::danger('Real danger!');
 Notify::info('Informed!');
 Notify::warning('Warning!');
 
 Notify::add($value, $type = 'success', $autohide = false, $icon = null, $dismissable = false);
+
+```
+
+A real world example:
+
+```php
+// this will autohide and get the default values for icon and dismissable
+
+public function logout()
+{
+    Auth::logout();
+    Notify::success('Successfuly logged out!', true);
+    
+    return Redirect::to('home');
+}
+
 ```
 
 License
