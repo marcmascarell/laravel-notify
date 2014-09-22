@@ -49,7 +49,6 @@ Notify::info('Informed!');
 Notify::warning('Warning!');
 
 Notify::add($value, $type = 'success', $autohide = false, $icon = null, $dismissable = false);
-
 ```
 
 A real world example:
@@ -64,7 +63,6 @@ public function logout()
     
     return Redirect::to('home');
 }
-
 ```
 
 License
