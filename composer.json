@@ -1,0 +1,25 @@
+{
+    "name": "mascame/notify",
+    "description": "Notify is a package to rapidly notificate your users about something using Bootstrap classes",
+    "homepage": "https://github.com/marcmascarell/laravel-notify",
+    "keywords": ["laravel", "notify", "bootstrap", "notifications", "notificator", "notifier"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Marc Mascarell",
+            "email": "marcmascarell@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.4.0",
+        "illuminate/support": "4.2.*"
+    },
+    "autoload": {
+        "classmap": [
+        ],
+        "psr-0": {
+            "Mascame\\Notify\\": "src/"
+        }
+    },
+    "minimum-stability": "stable"
+}
