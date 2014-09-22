@@ -50,6 +50,7 @@ Notify::success('Successfuly notified!');
 Notify::danger('Real danger!');
 Notify::info('Informed!');
 Notify::warning('Warning!');
+Notify::loading('Loading...');
 
 Notify::add($value, $type = 'success', $autohide = false, $icon = null, $dismissable = false);
 ```
